@@ -69,7 +69,11 @@ class StockServiceTest {
         Stock stock = stockRepository.findById(1L).orElseThrow();
         // 예상: 100개 - (1 * 100) = 0개
         // 결과: Race Condition 발생
-        // quantity 리소스를 얻기 위해 두개 이상의 Thread 가 경쟁
+        // quantity 리소스를 얻기 위해 두개 이상의 Thread 가 경쟁하게 됨
+
+        // synchronized를 메소드에 붙여서 Race Condition을 해결해볼 수 있지만
+        // 스프링의 Transactional 처리 메커니즘에 따라 StockService 클래스를 Wrapping 한 클래스가 생성되어
+        // @Transactional 어노테이션을 주석 처리해야함
         assertThat(stock.getQuantity()).isEqualTo(0);
     }
 }
