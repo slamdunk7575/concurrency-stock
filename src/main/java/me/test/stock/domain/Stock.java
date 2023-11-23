@@ -16,6 +16,7 @@ public class Stock {
 
     private Long quantity;
 
+    // javax.persistence 패키지에 있는 어노테이션을 이용
     @Version
     private Long version;
 
